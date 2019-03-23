@@ -1,0 +1,23 @@
+#container {
+	border: 1px solid red;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	height: 500px;
+	width: 800px;
+}
+
+.questionWrap {
+	border: 1px solid blue;
+	flex: 3;
+}
+
+.answerWrap {
+	border: 1px solid green;
+	flex: 2;
+}
+
+.nextWrap {
+	border: 1px solid yellow;
+	flex: 1;
+}
