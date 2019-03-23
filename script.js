@@ -2,7 +2,7 @@ const questions = [{
 	question_string: "Where would you find the empire state building?",
 	choices: {
 	  correct: "New York",
-	  options: ["Pink", "Orange", "Green"]
+	  options: ["New York", "Los Angeles", "San Francisco", "New Orleans"]
 	},
 	feedback: {
 		correct: "That's right",
@@ -25,8 +25,8 @@ const questions = [{
   {
 	question_string: "_ is a character in the film 'The Matrix'?",
 	choices: {
-	  correct: "Three",
-	  options: ["One", "Two", "Four"]
+	  correct: "Neo",
+	  options: ["R2D2", "Neo", "Ripley"]
 	},
 	feedback: {
 		correct: "That's right.",
@@ -38,6 +38,10 @@ const questions = [{
 ];
 
 let score = 0;
+let q1Answered = false;
+let q2Answered = false;
+let q3Answered = false;
+let alreadyAnswered = '- but you dont get a score!';
 let question = document.getElementById('question');
 let answer = document.getElementById('answer');
 let warning = document.getElementById('warning');
@@ -85,14 +89,12 @@ function answerOption(el) {
 				answerCurrent.push(el);
 				document.getElementById(el).style.background = 'blue';
 				document.getElementById(el).style.color = 'white';
-				console.log(answerCurrent);
 			} 
 			else if(answerCurrent.includes(el)) {
 				let index = answerCurrent.indexOf(el);
 				answerCurrent.splice(index, 1);
 				document.getElementById(el).style.background = 'buttonface';
 				document.getElementById(el).style.color = 'buttontext';
-				console.log(answerCurrent+'then');
 			}
 			break;
 		case 'multi':
@@ -114,10 +116,13 @@ function confirmAnswer() {
 		switch(questions[questionCurrent].type) {
 			case 'single':
 				if(answers.includes(answerCurrent)) {
-					score += 1;
+					if(q1Answered === false) {
+						score += 1;
+					}
 					warning.innerHTML = questions[questionCurrent].feedback.correct;
+					(q1Answered ? warning.innerHTML += alreadyAnswered : '');
 				} else {
-					warning.innerHTML = questions[questionCurrent].feedback.correct;
+					warning.innerHTML = questions[questionCurrent].feedback.incorrect;
 				}
 				break;
 			case 'multi':
@@ -127,7 +132,7 @@ function confirmAnswer() {
 					score += 1;
 					warning.innerHTML = questions[questionCurrent].feedback.correct;
 				} else {
-					warning.innerHTML = questions[questionCurrent].feedback.correct;
+					warning.innerHTML = questions[questionCurrent].feedback.incorrect;
 				}
 				break;
 			case 'singlefill':
@@ -136,7 +141,7 @@ function confirmAnswer() {
 					score += 1;
 					warning.innerHTML = questions[questionCurrent].feedback.correct;
 				} else {
-					warning.innerHTML = questions[questionCurrent].feedback.correct;
+					warning.innerHTML = questions[questionCurrent].feedback.incorrect;
 				}
 				break;
 		};
